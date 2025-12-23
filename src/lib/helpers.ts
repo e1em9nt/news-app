@@ -1,19 +1,22 @@
-export function truncateWord(text: string, max = 100) {
-  const clean = text.trim();
-  if (clean.length <= max) return clean;
+export function truncateWord(text: string, max = 100): string {
+  const cleanText = text.trim();
+  if (cleanText.length <= max) return cleanText;
 
-  const cut = clean.slice(0, max);
-  const lastSpace = cut.lastIndexOf(" ");
-  return (lastSpace > 0 ? cut.slice(0, lastSpace) : cut) + "...";
+  const cut = cleanText.slice(0, max);
+  const lastSpaceIndex = cut.lastIndexOf(" ");
+  return (lastSpaceIndex > 0 ? cut.slice(0, lastSpaceIndex) : cut) + "...";
 }
 
-export function formatDate(iso: string) {
-  const d = new Date(iso);
+export function formatDate(iso: string): string {
+  const date = new Date(iso);
 
-  const day = d.getUTCDate();
-  const year = d.getUTCFullYear();
+  const day = date.getUTCDate();
+  const year = date.getUTCFullYear();
 
-  const month = d.toLocaleString("en-US", { month: "long", timeZone: "UTC" });
+  const month = date.toLocaleString("en-US", {
+    month: "long",
+    timeZone: "UTC",
+  });
 
   const suffix =
     day % 100 >= 11 && day % 100 <= 13

@@ -14,3 +14,12 @@
   --font: "Montserrat", sans-serif;
   --border: 1px solid var(--fc-light);
 }
+
+:root[data-theme="dark"] {
+  --fc-base: #e6e6e6;
+  --fc-muted: #b3b3b3;
+  --fc-light: #2a2a2a;
+
+  --bg: #121212;
+  --box-shadow: 0px 8px 24px rgba(255, 255, 255, 0.07);
+}

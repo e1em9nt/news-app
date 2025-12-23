@@ -1,42 +1,22 @@
-import { useEffect, useState } from "react";
-
 import { Grid, Typography, Divider } from "@mui/material";
-import Card from "./Card";
-import { NEWS_API } from "../../lib/constants";
+import { useSearchParams } from "react-router-dom";
 
-export type Article = {
-  id: number;
-  title: string;
-  summary: string;
-  image_url: string;
-  updated_at: string;
-};
-type ArticlesResponse = {
-  count: number;
-  results: Article[];
-};
+import Card from "./Card";
+import CardSkeleton from "./CardSkeleton";
+import { useArticles } from "../../lib/hooks/useArticles";
+import { SKELETON_COUNT, FETCH_LIMIT } from "../../lib/constants";
 
 export default function CardList() {
-  const [news, setNews] = useState<ArticlesResponse | null>(null);
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get("q") ?? "";
+  const { data, loading, error } = useArticles({
+    search: keyword,
+    limit: FETCH_LIMIT,
+  });
 
-  useEffect(() => {
-    async function fetchNews() {
-      try {
-        const res = await fetch(`${NEWS_API}articles/?search=school`);
+  if (error) return;
 
-        if (!res.ok) throw new Error("Failed to fetch news");
-
-        const data = await res.json();
-        console.log(data);
-        setNews(data);
-      } catch (err) {
-        if (err instanceof Error) throw new Error(err.message);
-      }
-    }
-    fetchNews();
-  }, []);
-
-  console.log(news);
+  //console.log(news);
   return (
     <>
       <Typography
@@ -48,9 +28,11 @@ export default function CardList() {
           color: "var(--fc-base)",
         }}
       >
-        Results: {news?.count}
+        Results: {data?.count}
       </Typography>
-      <Divider sx={{ color: "var(--fc-light)" }} />
+
+      <Divider sx={{ borderColor: "var(--fc-light)" }} />
+
       <Grid
         container
         sx={{
@@ -58,11 +40,17 @@ export default function CardList() {
           marginTop: "clamp(25px, 2.5vw, 45px)",
         }}
       >
-        {news?.results.map((article) => (
-          <Grid /* size={{ xs: 12, md: 6, lg: 4, xl: 3 }} */ key={article.id}>
-            <Card data={article} />
-          </Grid>
-        ))}
+        {loading
+          ? Array.from({ length: SKELETON_COUNT }).map((_, idx) => (
+              <Grid key={idx} /* size={{ xs: 12, md: 3, lg: 2 }} */>
+                <CardSkeleton />
+              </Grid>
+            ))
+          : (data?.results ?? []).map((article) => (
+              <Grid key={article.id}>
+                <Card data={article} />
+              </Grid>
+            ))}
       </Grid>
     </>
   );

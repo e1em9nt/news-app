@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 import { truncateWord, formatDate } from "../../lib/helpers";
 
-import type { Article } from "./CardList";
+import type { Article } from "../../api/types";
 
 interface CardProps {
   data: Article;
@@ -23,16 +23,18 @@ export default function Card({ data }: CardProps) {
     <MUICard
       sx={{
         width: "100%",
+        height: "100%",
         maxWidth: "clamp(320px, 27.8vw, 400px)",
         boxShadow: "var(--box-shadow)",
         border: "var(--border)",
         borderRadius: "5px",
+        backgroundColor: "transparent",
       }}
     >
       <CardMedia
         component="img"
         alt={data.title}
-        image={data.image_url}
+        image={data.imageUrl}
         sx={{ height: "clamp(160px, 15vw, 217px)", objectFit: "cover" }}
       />
 
@@ -60,7 +62,7 @@ export default function Card({ data }: CardProps) {
             sx={{ fontSize: "13.3px", display: "inline-block" }}
             aria-hidden
           />
-          {formatDate(data.updated_at)}
+          {formatDate(data.updatedAt)}
         </Typography>
 
         <Typography
@@ -69,9 +71,11 @@ export default function Card({ data }: CardProps) {
             fontSize: "clamp(18px, 1.67vw, 24px)",
             fontFamily: "var(--font)",
             color: "var(--fc-base)",
+            lineHeight: "1.5",
+            height: "clamp(81px, 7.5vw, 108px)",
           }}
         >
-          {data.title}
+          {truncateWord(data.title, 60)}
         </Typography>
         <Typography
           component="p"
@@ -79,6 +83,7 @@ export default function Card({ data }: CardProps) {
             fontFamily: "var(--font)",
             fontSize: "clamp(var(--fs-xs), 1.11vw, var(--fs-base))",
             color: "var(--fc-base)",
+            height: "clamp(67.2px, 6vw, 76.8px)",
           }}
         >
           {truncateWord(data.summary)}

@@ -1,13 +1,20 @@
 import { TextField, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-export default function SearchBar() {
+type SearchBarProps = {
+  value: string;
+  onChange: (val: string) => void;
+};
+
+export default function SearchBar({ value, onChange }: SearchBarProps) {
   return (
     <TextField
       variant="outlined"
       id="articles-search"
       placeholder="Search articles..."
       fullWidth
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
