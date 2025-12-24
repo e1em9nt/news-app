@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 import Card from "./Card";
 import CardSkeleton from "./CardSkeleton";
+import ErrorAlert from "./ErrorAlert";
 import { useArticles } from "../../lib/hooks/useArticles";
 import { SKELETON_COUNT, FETCH_LIMIT } from "../../lib/constants";
 
@@ -14,15 +15,15 @@ export default function CardList() {
     limit: FETCH_LIMIT,
   });
 
-  if (error) return;
+  if (error) return <ErrorAlert message={error} />;
 
-  //console.log(news);
+  console.log(data);
   return (
     <>
       <Typography
         sx={{
           fontFamily: "var(--font)",
-          fontSize: "clamp(var(--fs-xs), 1.11vw, var(--fs-base))",
+          fontSize: "var(--fs-base)",
           fontWeight: 600,
           letterSpacing: 0,
           color: "var(--fc-base)",
@@ -36,8 +37,8 @@ export default function CardList() {
       <Grid
         container
         sx={{
-          gap: "clamp(25px, 2.5vw, 45px)",
-          marginTop: "clamp(25px, 2.5vw, 45px)",
+          gap: "var(--fs-xl)",
+          marginTop: "var(--fs-xl)",
         }}
       >
         {loading

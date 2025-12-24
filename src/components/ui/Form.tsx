@@ -36,7 +36,7 @@ export default function Form() {
       onSubmit={handleSubmit}
       sx={{
         width: "42vw",
-        minWidth: "225px",
+        minWidth: "190px",
         marginBottom: "clamp(20px, 2vw, 40px)",
       }}
     >
@@ -46,7 +46,7 @@ export default function Form() {
         sx={{
           display: "block",
           fontWeight: 600,
-          fontSize: "clamp(var(--fs-xs), 1.11vw, var(--fs-base))",
+          fontSize: "var(--fs-base)",
           color: "var(--fc-base)",
           marginBottom: "1rem",
           letterSpacing: 0,

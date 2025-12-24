@@ -4,14 +4,11 @@ import {
   CardContent,
   CardActions,
   Typography,
-  Button,
 } from "@mui/material";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { Link } from "react-router-dom";
 
+import Button from "./Button";
 import { truncateWord, formatDate } from "../../lib/helpers";
-
 import type { Article } from "../../api/types";
 
 interface CardProps {
@@ -42,8 +39,8 @@ export default function Card({ data }: CardProps) {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: "clamp(12px, 1.4vw, var(--fs-m))",
-          padding: "clamp(var(--fs-base), 1.75vw, var(--fs-l))",
+          gap: "var(--fs-m)",
+          padding: "var(--fs-l)",
         }}
       >
         <Typography
@@ -68,11 +65,12 @@ export default function Card({ data }: CardProps) {
         <Typography
           component="h2"
           sx={{
-            fontSize: "clamp(18px, 1.67vw, 24px)",
+            fontSize: "var(--fs-ml)",
             fontFamily: "var(--font)",
             color: "var(--fc-base)",
             lineHeight: "1.5",
             height: "clamp(81px, 7.5vw, 108px)",
+            overflow: "hidden",
           }}
         >
           {truncateWord(data.title, 60)}
@@ -81,9 +79,10 @@ export default function Card({ data }: CardProps) {
           component="p"
           sx={{
             fontFamily: "var(--font)",
-            fontSize: "clamp(var(--fs-xs), 1.11vw, var(--fs-base))",
+            fontSize: "var(--fs-base)",
             color: "var(--fc-base)",
             height: "clamp(67.2px, 6vw, 76.8px)",
+            overflow: "hidden",
           }}
         >
           {truncateWord(data.summary)}
@@ -92,30 +91,11 @@ export default function Card({ data }: CardProps) {
 
       <CardActions
         sx={{
-          padding: "clamp(var(--fs-base), 1.75vw, var(--fs-l))",
+          padding: "var(--fs-l)",
           paddingTop: 0,
         }}
       >
-        <Button
-          component={Link}
-          to={`/articles/${data.id}`}
-          endIcon={<ArrowRightAltIcon />}
-          disableRipple
-          sx={{
-            color: "var(--fc-base)",
-            fontWeight: "700",
-            fontSize: "clamp(var(--fs-xs), 1.11vw, var(--fs-base))",
-            lineHeight: "150%",
-            textTransform: "none",
-            padding: 0,
-
-            "&:hover": {
-              backgroundColor: "transparent",
-            },
-          }}
-        >
-          Read More
-        </Button>
+        <Button path={`/articles/${data.id}`}>Read More</Button>
       </CardActions>
     </MUICard>
   );

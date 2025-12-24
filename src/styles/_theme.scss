@@ -12,7 +12,7 @@
   &__track {
     position: relative;
     width: 3.8rem;
-    height: var(--fs-m);
+    height: 2rem;
     border-radius: 9999px;
     background: transparent;
     border: 1px solid var(--fc-muted);
@@ -26,8 +26,8 @@
     position: absolute;
     top: 1px;
     left: 1px;
-    width: var(--fs-base);
-    height: var(--fs-base);
+    width: 1.6rem;
+    height: 1.6rem;
     border-radius: 50%;
     background: var(--fc-base);
     transform: translateX(0);

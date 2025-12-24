@@ -5,7 +5,7 @@ import ThemeToggle from "../ui/ThemeToggle";
 
 export default function HomePage() {
   return (
-    <>
+    <Box sx={{ margin: "var(--space-page)" }}>
       <Box
         sx={{
           display: "flex",
@@ -17,6 +17,6 @@ export default function HomePage() {
       </Box>
 
       <CardList />
-    </>
+    </Box>
   );
 }

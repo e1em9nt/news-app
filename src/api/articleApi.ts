@@ -33,7 +33,7 @@ function buildQuery(params?: GetArticlesParams): string {
 async function requestJson(url: string) {
   const res = await fetch(url);
 
-  if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+  if (!res.ok) throw new Error(`Failed to fetch`);
 
   return await res.json();
 }

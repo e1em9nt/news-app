@@ -31,8 +31,8 @@ export default function CardSkeleton() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: "clamp(12px, 1.4vw, var(--fs-m))",
-          padding: "clamp(var(--fs-base), 1.75vw, var(--fs-l))",
+          gap: "var(--fs-m)",
+          padding: "var(--fs-l)",
         }}
       >
         <Box sx={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
@@ -56,7 +56,7 @@ export default function CardSkeleton() {
             variant="text"
             sx={{
               width: "95%",
-              fontSize: "clamp(18px, 1.67vw, 24px)",
+              fontSize: "var(--fs-ml)",
               lineHeight: 1.5,
               backgroundColor: "var(--fc-light)",
             }}
@@ -65,7 +65,7 @@ export default function CardSkeleton() {
             variant="text"
             sx={{
               width: "80%",
-              fontSize: "clamp(18px, 1.67vw, 24px)",
+              fontSize: "var(--fs-ml)",
               lineHeight: 1.5,
               backgroundColor: "var(--fc-light)",
             }}
@@ -74,7 +74,7 @@ export default function CardSkeleton() {
             variant="text"
             sx={{
               width: "60%",
-              fontSize: "clamp(18px, 1.67vw, 24px)",
+              fontSize: "var(--fs-ml)",
               lineHeight: 1.5,
               backgroundColor: "var(--fc-light)",
             }}
@@ -95,7 +95,7 @@ export default function CardSkeleton() {
             variant="text"
             sx={{
               width: "85%",
-              fontSize: "clamp(var(--fs-xs), 1.11vw, var(--fs-base))",
+              fontSize: "var(--fs-base)",
               lineHeight: "150%",
               backgroundColor: "var(--fc-light)",
             }}
@@ -105,7 +105,7 @@ export default function CardSkeleton() {
 
       <CardActions
         sx={{
-          padding: "clamp(var(--fs-base), 1.75vw, var(--fs-l))",
+          padding: "var(--fs-l)",
           paddingTop: 0,
         }}
       >
@@ -113,7 +113,7 @@ export default function CardSkeleton() {
           variant="text"
           sx={{
             width: 110,
-            fontSize: "clamp(var(--fs-xs), 1.11vw, var(--fs-base))",
+            fontSize: "var(--fs-base)",
             lineHeight: "150%",
             backgroundColor: "var(--fc-light)",
           }}

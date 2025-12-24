@@ -28,7 +28,7 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
         "& .MuiInputBase-input": {
           color: "var(--fc-muted)",
           lineHeight: "150%",
-          fontSize: "clamp(var(--fs-xs), 1.11vw, var(--fs-base))",
+          fontSize: "var(--fs-base)",
           padding: "clamp(9px, 0.7vw, 13px)",
           paddingLeft: 0,
           fontFamily: "var(--font)",
