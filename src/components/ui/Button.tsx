@@ -1,6 +1,6 @@
 import { Button as MUIButton, type SxProps, type Theme } from "@mui/material";
 import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, type LinkProps } from "react-router-dom";
 
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
@@ -8,6 +8,7 @@ import EastIcon from "@mui/icons-material/East";
 interface ButtonProps {
   type?: "forward" | "back";
   path: string;
+  state?: LinkProps["state"];
 
   children: ReactNode;
   sx?: SxProps<Theme>;
@@ -16,6 +17,7 @@ interface ButtonProps {
 export default function Button({
   type = "forward",
   path,
+  state,
   children,
   sx = {},
 }: ButtonProps) {
@@ -23,6 +25,7 @@ export default function Button({
     <MUIButton
       component={Link}
       to={path}
+      state={state}
       endIcon={type === "forward" && <EastIcon />}
       startIcon={type === "back" && <WestIcon />}
       disableRipple

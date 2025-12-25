@@ -4,24 +4,31 @@ import {
   CardContent,
   CardActions,
   Typography,
+  Box,
 } from "@mui/material";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import { useLocation } from "react-router-dom";
 
 import Button from "./Button";
-import { truncateWord, formatDate } from "../../lib/helpers";
+import { truncateWord, formatDate, normalizeImageUrl } from "../../lib/helpers";
 import type { Article } from "../../api/types";
+import { highlightText } from "../../lib/search";
+import { FALLBACK_IMG } from "../../lib/constants";
 
 interface CardProps {
   data: Article;
+  keywords: string[];
 }
 
-export default function Card({ data }: CardProps) {
+export default function Card({ data, keywords }: CardProps) {
+  const location = useLocation();
+
   return (
     <MUICard
       sx={{
         width: "100%",
-        height: "100%",
-        maxWidth: "clamp(320px, 27.8vw, 400px)",
+        display: "flex",
+        flexDirection: "column",
         boxShadow: "var(--box-shadow)",
         border: "var(--border)",
         borderRadius: "5px",
@@ -31,7 +38,10 @@ export default function Card({ data }: CardProps) {
       <CardMedia
         component="img"
         alt={data.title}
-        image={data.imageUrl}
+        image={normalizeImageUrl(data.imageUrl)}
+        onError={(e) => {
+          (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG;
+        }}
         sx={{ height: "clamp(160px, 15vw, 217px)", objectFit: "cover" }}
       />
 
@@ -41,6 +51,7 @@ export default function Card({ data }: CardProps) {
           flexDirection: "column",
           gap: "var(--fs-m)",
           padding: "var(--fs-l)",
+          flex: 1,
         }}
       >
         <Typography
@@ -70,10 +81,13 @@ export default function Card({ data }: CardProps) {
             color: "var(--fc-base)",
             lineHeight: "1.5",
             height: "clamp(81px, 7.5vw, 108px)",
+            /* display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical", */
             overflow: "hidden",
           }}
         >
-          {truncateWord(data.title, 60)}
+          {highlightText(truncateWord(data.title, 50), keywords)}
         </Typography>
         <Typography
           component="p"
@@ -81,12 +95,15 @@ export default function Card({ data }: CardProps) {
             fontFamily: "var(--font)",
             fontSize: "var(--fs-base)",
             color: "var(--fc-base)",
-            height: "clamp(67.2px, 6vw, 76.8px)",
-            overflow: "hidden",
+            height: "clamp(76px, 6.1vw, 76.8px)",
+            /*  display: "-webkit-box",
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: "vertical", */
           }}
         >
-          {truncateWord(data.summary)}
+          {highlightText(truncateWord(data.summary), keywords)}
         </Typography>
+        <Box sx={{ flex: 1 }} />
       </CardContent>
 
       <CardActions
@@ -95,7 +112,12 @@ export default function Card({ data }: CardProps) {
           paddingTop: 0,
         }}
       >
-        <Button path={`/articles/${data.id}`}>Read More</Button>
+        <Button
+          path={`/articles/${data.id}`}
+          state={{ from: `${location.pathname}${location.search}` }}
+        >
+          Read More
+        </Button>
       </CardActions>
     </MUICard>
   );

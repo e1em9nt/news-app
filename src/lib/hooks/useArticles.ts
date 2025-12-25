@@ -14,21 +14,28 @@ export function useArticles(args: ArticlesArgs) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchNews() {
+    let cancelledFetch: boolean = false;
+
+    async function fetchArticles() {
       try {
         setLoading(true);
         setError(null);
 
         const res = await articleApi.getArticles(args);
 
-        setData(res);
+        if (!cancelledFetch) setData(res);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Unknown error");
+        if (!cancelledFetch)
+          setError(err instanceof Error ? err.message : "Unknown error");
       } finally {
-        setLoading(false);
+        if (!cancelledFetch) setLoading(false);
       }
     }
-    fetchNews();
+    fetchArticles();
+
+    return () => {
+      cancelledFetch = true;
+    };
   }, [args.search, args.limit, args.offset]);
 
   return { data, loading, error };

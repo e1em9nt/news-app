@@ -31,3 +31,9 @@ export function formatDate(iso: string): string {
 
   return `${month} ${day}${suffix}, ${year}`;
 }
+
+export function normalizeImageUrl(url?: string) {
+  if (!url) return;
+
+  return url.startsWith("http://") ? url.replace("http://", "https://") : url;
+}

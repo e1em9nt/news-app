@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 
 import { Box, Typography } from "@mui/material";
 import SearchBar from "./SearchBar";
+import useArticleListParams from "../../lib/hooks/useArticleListParams";
+import { FETCH_LIMIT } from "../../lib/constants";
 
 export default function Form() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get("q") ?? "";
+  const { keyword: query, setKeyword: setQueryParam } =
+    useArticleListParams(FETCH_LIMIT);
   const [keyword, setKeyword] = useState<string>(query);
 
   useEffect(() => {
@@ -16,18 +17,7 @@ export default function Form() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const nextQuery = keyword.trim();
-
-    setSearchParams((prev) => {
-      const searchParam = new URLSearchParams(prev);
-      if (nextQuery) searchParam.set("q", nextQuery);
-      else searchParam.delete("q");
-
-      // reset pagination when searching
-      //searchParam.delete("page");
-
-      return searchParam;
-    });
+    setQueryParam(keyword, { replace: true });
   };
 
   return (

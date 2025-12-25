@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Typography, Box, Container, Paper } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 import Button from "../ui/Button";
 import ErrorAlert from "../ui/ErrorAlert";
 import ArticleSkeleton from "../ui/ArticleSkeleton";
 import type { Article } from "../../api/types";
 import { articleApi } from "../../api/articleApi";
+import { normalizeImageUrl } from "../../lib/helpers";
+import { FALLBACK_IMG } from "../../lib/constants";
 
 export default function ArticlePage() {
   const { id } = useParams();
   const [article, setArticle] = useState<Article | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const location = useLocation();
+  const from = (location.state as { from?: string } | null)?.from;
 
   useEffect(() => {
     async function fetchArticle() {
@@ -38,20 +44,26 @@ export default function ArticlePage() {
   if (!article) return <ArticleSkeleton />;
 
   return (
-    <Box>
+    <Box sx={{ position: "relative" }}>
       <Box
+        component="img"
+        src={normalizeImageUrl(article.imageUrl)}
+        onError={(e) => {
+          (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG;
+        }}
         sx={{
           height: "clamp(190px, 22.5vw, 245px)",
           width: "100%",
-          backgroundImage: `url(${article.imageUrl})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          objectFit: "cover",
+          display: "block",
         }}
       />
 
       <Container maxWidth={false} disableGutters>
         <Paper
           sx={{
+            position: "relative",
+            zIndex: 2,
             margin: "var(--space-page)",
             mt: "clamp(-100px, -8vw, -95px)",
             padding: "var(--space-page)",
@@ -90,7 +102,7 @@ export default function ArticlePage() {
         </Paper>
 
         <Button
-          path="/articles"
+          path={from ?? "/articles"}
           type="back"
           sx={{ marginLeft: "clamp(2rem, 10vw, 15rem)", marginBottom: "3rem" }}
         >

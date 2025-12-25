@@ -10,8 +10,9 @@ export default function CardSkeleton() {
   return (
     <MUICard
       sx={{
-        height: "100%",
-        width: "clamp(320px, 27.8vw, 400px)",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
         boxShadow: "var(--box-shadow)",
         border: "var(--border)",
         borderRadius: "5px",
