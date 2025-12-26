@@ -81,9 +81,6 @@ export default function Card({ data, keywords }: CardProps) {
             color: "var(--fc-base)",
             lineHeight: "1.5",
             height: "clamp(81px, 7.5vw, 108px)",
-            /* display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical", */
             overflow: "hidden",
           }}
         >
@@ -96,9 +93,6 @@ export default function Card({ data, keywords }: CardProps) {
             fontSize: "var(--fs-base)",
             color: "var(--fc-base)",
             height: "clamp(76px, 6.1vw, 76.8px)",
-            /*  display: "-webkit-box",
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: "vertical", */
           }}
         >
           {highlightText(truncateWord(data.summary), keywords)}

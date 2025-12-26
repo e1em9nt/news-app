@@ -5,6 +5,12 @@ import type {
   ArticlesResponse,
 } from "../api/types";
 
+/**
+ * Converts snake_case Article fields to camelCase
+ *
+ * @param dto - Article DTO returned by the API
+ * @returns mapped Article
+ */
 export function mapArticleDto(dto: ArticleDto): Article {
   return {
     id: dto.id,
@@ -15,6 +21,12 @@ export function mapArticleDto(dto: ArticleDto): Article {
   };
 }
 
+/**
+ * Maps API response into the app model
+ *
+ * @param dto - Articles response DTO returned by the API
+ * @returns mapped ArticleResponse
+ */
 export function mapArticlesResponseDto(
   dto: ArticlesResponseDto
 ): ArticlesResponse {
