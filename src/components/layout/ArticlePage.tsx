@@ -102,7 +102,7 @@ export default function ArticlePage() {
         </Paper>
 
         <Button
-          path={from ?? "/articles"}
+          path={from ?? "/"}
           type="back"
           sx={{ marginLeft: "clamp(2rem, 10vw, 15rem)", marginBottom: "3rem" }}
         >

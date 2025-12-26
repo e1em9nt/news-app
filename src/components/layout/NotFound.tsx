@@ -52,7 +52,7 @@ export default function NotFound({
       >
         {errorMsg}
       </Typography>
-      <Button type="back" path="/articles">
+      <Button type="back" path="/">
         Back to homepage
       </Button>
     </Box>
